@@ -126,11 +126,31 @@ The head of the relevant columns for this analysis of the resulting dataframe is
 
 ### Univariate Analysis
 
+First, I created a visualization of the distribution of average ratings amongst all recipes. 
+
+<iframe
+  src="distribution-rating.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The histogram is heavily skewed right, demonstrating recipes tend to have higher reviews rather than lower reviews, with relatively very few recipes having ratings between 1-3. 
+
+Next, I developed a visualization of the distribution of the number of ingredients amongst all recipes, in order to guage the complexity of most recipes. 
+
 <iframe
   src="distribution-ingredients.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+This histogram is primarily centered around 8-9 ingredients, with a slight right skew. This suggests that the data is relatively well behaved, possibly being a good indicator to predict average ratings. 
+
+### Bivariate Analysis
+
+
+
 
 
