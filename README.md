@@ -194,6 +194,7 @@ I believe that the "description" column is NMAR. If there is no description of t
 
 ### Missingness Dependency 
 
+> Year and Rating
 Next, in order to explore the missingness of the "avg_rating" column, I examined the column "submitted", which contains information about when the recipe was first posted to the website. Recipes posted on later dates may be more likely to have missing values, as people haven't had time to discover the recipe yet. In order to conduct this test, I first added a column to the recipes DataFrame, "year", which I created by extracting the year from each DateTime object in the "submitted" column. 
 
 In order to confirm this theory, I created an overlaid histogram mapping the density of missing and non-missing data over time. 
@@ -214,7 +215,7 @@ From the visualization, we can conclude that nonmissing average rating is heavil
 
 **Significance Level** : 0.05 
 
-I ran this permutation test 1000 simulations by shuffling the missingness of "avg_rating" and checking if the simulated test statistics were as extreme as the observed test statistic.
+I ran this permutation test with 1000 simulations by shuffling the missingness of "avg_rating" and checking if the simulated test statistics were as extreme as the observed test statistic.
 
 <iframe
   src="missing.html"
@@ -222,4 +223,26 @@ I ran this permutation test 1000 simulations by shuffling the missingness of "av
   height="600"
   frameborder="0"
 ></iframe>
-The observed test staistic of 0.7297 is demonstrated by the red line on the graph. Since the p-value of 0.0 < significance level of 0.05, we can reject the null hypothesis. Thus, the missingness of "average rating" does depend on "year."
+The observed test statistic of 0.7297 is represented by the red line on the graph. Since the p-value of 0.0 < significance level of 0.05, we can reject the null hypothesis. Thus, the missingness of "average rating" does depend on "year."
+
+> Sodium and Rating
+
+Next, I conducted a permutation test to determine if the missingness of "avg_rating" is dependent on the sodium content of the recipes.
+
+**Null Hypothesis** : The missingness of rating does not depend on the sodium content of the recipe. 
+
+**Alternative Hypothesis** : The missingness of rating does depend on the sodium content of the recipe. 
+
+**Test Statistic** The absolute difference in means between the sodium content for recipes with missing rating values and the sodium content for recipes without missing rating values.
+
+**Significance Level** : 0.05 
+
+I ran this permutation test with 1000 simulations by shuffling the missingness of "avg_rating" and checking if the simulated test statistics were as extreme as the observed test statistic.
+
+<iframe
+  src="sodium.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+The observed test statistic of 0.3404 is represented by the red line of the graph. This results in a p-value of 0.883 which is greater than the significance level of 0.05. Thus, we fail to reject the null hypothesis, and cannot conclude that the missingness of "avg_rating" is dependent on "sodium." 
