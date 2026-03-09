@@ -150,6 +150,60 @@ This histogram is primarily centered around 8-9 ingredients, with a slight right
 
 ### Bivariate Analysis
 
+In order to measure the relationship between cooking time and average rating, I created a scatterplot corresponding to the average rating for each recipe by the cooking time in minutes. This visualization shows that the entire distribution of average ratings have low cooking times data points, but higher cooking times normally correspond with higher average ratings. In later sections, I will see how cooking time can help predict average rating for recipes to further explore this relationship. 
+
+<iframe
+  src="time-rating.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+### Interesting Aggregates 
+
+Next, in order to explore the relationship between the number of steps and average rating for recipes, I created a dataframe measuring the average rating of all recipes that have each corresponding number of steps. A few rows of the resulting dataframe in ascending order is shown below. 
+
+Head of Table: 
+|   n_steps |   avg_rating |
+|----------:|-------------:|
+|         1 |      4.64813 |
+|         2 |      4.66612 |
+|         3 |      4.65546 |
+|         4 |      4.64004 |
+|         5 |      4.61038 |
+
+Tail of Table:
+|   n_steps |   avg_rating |
+|----------:|-------------:|
+|        87 |      5       |
+|        88 |      3.66667 |
+|        93 |      5       |
+|        98 |      5       |
+|       100 |      5       |
+
+Based on the general trend (ignoring the outlier shown for average rating for 88 steps), it seems that more steps corresponds to a higher average rating for recipes. This trend will also be explored in later sections for the average rating prediciton model. 
+
+## Assessment of Missingness
+
+The columns "description", corresponding to the descipriton of the recipe, "name", stating the name of the recipe, and "avg_rating" all have missing values. In order to determine the cause of the missingness, I performed a missingness analysis on the columns.
+
+### NMAR Analysis 
+
+I believe that the "description" column is NMAR. If there is no description of the recipe, that means the person who posted to recipe is likely to believe that the name is already self explanatory as it is a simple recipe, and thus, a description is unneccesary. Adding a description would require more effort, and if the developer of the recipe believed a description was neccesary to better explain the final product, they would take the time to add a description. Thus, a missing description suggests that the recipe is relatively simple, and the description would just have repetitive information, adding nothing more than the data already collected. Some additional data I may want to collect is how the people who posted the recipe rank its difficulty/simplicity on a numeric scale. This may show that simple recipes tend to have more missing descriptions than more difficult recipes. 
+
+### Missingness Dependency 
+
+Next, in order to explore the missingness of the "avg_rating" column, I examined the column "submitted", which contains information about when the recipe was first posted to the website. Recipes posted on later dates may be more likely to have missing values, as people haven't had time to discover the recipe yet. Thus, I decided to conduct a permutation test examining if missingness of "avg_rating" is dependent on the year the recipe was posted. In order to conduct this test, I first added a column to the recipes DataFrame, "year", which I created by extracting the year from each DateTime object in the "submitted" column. 
+
+**Null Hypothesis** : The missingness of rating does not depend on the year the recipe was posted. 
+
+**Alternative Hypothesis** : The missingness of rating does depend on the year the recipe was posted. 
+
+**Test Statistic** The absolute difference in means between the average year for recipes with missing rating values and the average year for recipes without missing rating values.
+
+**Significance Level** : 0.05 
+
+I ran this permutation test 1000 simulations by shuffling the missingness of "avg_rating" and checking if the simulated test statistics were as extreme as the observed test statistic.
 
 
 
