@@ -134,7 +134,6 @@ First, I created a visualization of the distribution of average ratings amongst 
   height="600"
   frameborder="0"
 ></iframe>
-
 The histogram is heavily skewed right, demonstrating recipes tend to have higher reviews rather than lower reviews, with relatively very few recipes having ratings between 1-3. 
 
 Next, I developed a visualization of the distribution of the number of ingredients amongst all recipes, in order to guage the complexity of most recipes. 
@@ -145,12 +144,11 @@ Next, I developed a visualization of the distribution of the number of ingredien
   height="600"
   frameborder="0"
 ></iframe>
-
 This histogram is primarily centered around 8-9 ingredients, with a slight right skew. This suggests that the data is relatively well behaved, possibly being a good indicator to predict average ratings. 
 
 ### Bivariate Analysis
 
-In order to measure the relationship between cooking time and average rating, I created a scatterplot corresponding to the average rating for each recipe by the cooking time in minutes. This visualization shows that the entire distribution of average ratings have low cooking times data points, but higher cooking times normally correspond with higher average ratings. In later sections, I will see how cooking time can help predict average rating for recipes to further explore this relationship. 
+In order to measure the relationship between cooking time and average rating, I created a scatterplot corresponding to the average rating for each recipe by the cooking time in minutes.
 
 <iframe
   src="time-rating.html"
@@ -158,12 +156,14 @@ In order to measure the relationship between cooking time and average rating, I 
   height="600"
   frameborder="0"
 ></iframe>
+This visualization shows that the entire distribution of average ratings have low cooking times data points, but higher cooking times normally correspond with higher average ratings. In later sections, I will see how cooking time can help predict average rating for recipes to further explore this relationship. 
 
 ### Interesting Aggregates 
 
 Next, in order to explore the relationship between the number of steps and average rating for recipes, I created a dataframe measuring the average rating of all recipes that have each corresponding number of steps. A few rows of the resulting dataframe in ascending order is shown below. 
 
 Head of Table: 
+
 |   n_steps |   avg_rating |
 |----------:|-------------:|
 |         1 |      4.64813 |
@@ -173,6 +173,7 @@ Head of Table:
 |         5 |      4.61038 |
 
 Tail of Table:
+
 |   n_steps |   avg_rating |
 |----------:|-------------:|
 |        87 |      5       |
@@ -221,5 +222,4 @@ I ran this permutation test 1000 simulations by shuffling the missingness of "av
   height="600"
   frameborder="0"
 ></iframe>
-
 The observed test staistic of 0.7297 is demonstrated by the red line on the graph. Since the p-value of 0.0 < significance level of 0.05, we can reject the null hypothesis. Thus, the missingness of "average rating" does depend on "year."
