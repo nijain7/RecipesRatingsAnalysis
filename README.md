@@ -195,6 +195,10 @@ I believe that the "description" column is NMAR. If there is no description of t
 
 Next, in order to explore the missingness of the "avg_rating" column, I examined the column "submitted", which contains information about when the recipe was first posted to the website. Recipes posted on later dates may be more likely to have missing values, as people haven't had time to discover the recipe yet. Thus, I decided to conduct a permutation test examining if missingness of "avg_rating" is dependent on the year the recipe was posted. In order to conduct this test, I first added a column to the recipes DataFrame, "year", which I created by extracting the year from each DateTime object in the "submitted" column. 
 
+In order to confirm this theory, I created a visualization mapping the counts of missing and non-missing data over time. 
+
+
+
 **Null Hypothesis** : The missingness of rating does not depend on the year the recipe was posted. 
 
 **Alternative Hypothesis** : The missingness of rating does depend on the year the recipe was posted. 
@@ -205,6 +209,11 @@ Next, in order to explore the missingness of the "avg_rating" column, I examined
 
 I ran this permutation test 1000 simulations by shuffling the missingness of "avg_rating" and checking if the simulated test statistics were as extreme as the observed test statistic.
 
-
+<iframe
+  src="missing.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
