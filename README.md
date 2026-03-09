@@ -193,11 +193,17 @@ I believe that the "description" column is NMAR. If there is no description of t
 
 ### Missingness Dependency 
 
-Next, in order to explore the missingness of the "avg_rating" column, I examined the column "submitted", which contains information about when the recipe was first posted to the website. Recipes posted on later dates may be more likely to have missing values, as people haven't had time to discover the recipe yet. Thus, I decided to conduct a permutation test examining if missingness of "avg_rating" is dependent on the year the recipe was posted. In order to conduct this test, I first added a column to the recipes DataFrame, "year", which I created by extracting the year from each DateTime object in the "submitted" column. 
+Next, in order to explore the missingness of the "avg_rating" column, I examined the column "submitted", which contains information about when the recipe was first posted to the website. Recipes posted on later dates may be more likely to have missing values, as people haven't had time to discover the recipe yet. In order to conduct this test, I first added a column to the recipes DataFrame, "year", which I created by extracting the year from each DateTime object in the "submitted" column. 
 
-In order to confirm this theory, I created a visualization mapping the counts of missing and non-missing data over time. 
+In order to confirm this theory, I created an overlaid histogram mapping the density of missing and non-missing data over time. 
+<iframe
+  src="year_vis.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
-
+From the visualization, we can conclude that nonmissing average rating is heavily concentrated in the earlier years while the missing average rating values are relatively more in the later years. Thus, I decided to conduct a permutation test examining if missingness of "avg_rating" is dependent on the year the recipe was posted.
 
 **Null Hypothesis** : The missingness of rating does not depend on the year the recipe was posted. 
 
@@ -216,4 +222,4 @@ I ran this permutation test 1000 simulations by shuffling the missingness of "av
   frameborder="0"
 ></iframe>
 
-
+The observed test staistic of 0.7297 is demonstrated by the red line on the graph. Since the p-value of 0.0 < significance level of 0.05, we can reject the null hypothesis. Thus, the missingness of "average rating" does depend on "year."
