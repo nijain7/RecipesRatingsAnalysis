@@ -246,3 +246,17 @@ I ran this permutation test with 1000 simulations by shuffling the missingness o
   frameborder="0"
 ></iframe>
 The observed test statistic of 0.3404 is represented by the red line of the graph. This results in a p-value of 0.883 which is greater than the significance level of 0.05. Thus, we fail to reject the null hypothesis, and cannot conclude that the missingness of "avg_rating" is dependent on "sodium." 
+
+## Hypothesis Testing 
+
+As mentioned in the introduction, this project is mainly focused on how a recipe's increased complexity could possibly impact or lower the average rating of that recipe. In order to further explore this question, I conducted a **permutation test** using the "greater_than_three" column and "avg_rating" column. 
+
+**Null Hypothesis**: The average ratings for recipes that have a cooking time of greater than or equal to three hours is equal to the average ratings for cooking times of less than three hours 
+
+**Alternate Hypothesis**: The average rating for recipes that have a cooking time of greater than or equal to three hours is less than the average ratings for cooking times of less than three hours
+
+**Test Statistic**: Difference in means between "avg_rating" for recipes with greater than three hours cooking time and "avg_rating" for recipes with less than three hours cooking time. 
+
+**Significance Level**: 0.05
+
+I decided to conduct a permutation test with these choices because we have no information about actual population, rather are trying to see if longer cooking times have a different average rating distribution from shorter cooking times. According to research conducted prior to the test, people are more likely to favor less complex recipes. Thus, I conducted a one-sided permutation test as I believe that shorter cooking times would have higher average ratings. 
