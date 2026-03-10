@@ -195,6 +195,7 @@ I believe that the "description" column is NMAR. If there is no description of t
 ### Missingness Dependency 
 
 > Year and Rating
+
 Next, in order to explore the missingness of the "avg_rating" column, I examined the column "submitted", which contains information about when the recipe was first posted to the website. Recipes posted on later dates may be more likely to have missing values, as people haven't had time to discover the recipe yet. In order to conduct this test, I first added a column to the recipes DataFrame, "year", which I created by extracting the year from each DateTime object in the "submitted" column. 
 
 In order to confirm this theory, I created an overlaid histogram mapping the density of missing and non-missing data over time. 
