@@ -233,7 +233,7 @@ Next, I conducted a permutation test to determine if the missingness of "avg_rat
 
 **Alternative Hypothesis** : The missingness of rating does depend on the sodium content of the recipe. 
 
-**Test Statistic** The absolute difference in means between the sodium content for recipes with missing rating values and the sodium content for recipes without missing rating values.
+**Test Statistic**: The absolute difference in means between the sodium content for recipes with missing rating values and the sodium content for recipes without missing rating values.
 
 **Significance Level** : 0.05 
 
@@ -269,6 +269,25 @@ To run this test, I first split up the data into two groups - greater than or eq
   frameborder="0"
 ></iframe>
 
+
 ### Conclusion
 Since the p-value of 0.0 < 0.05 (the significance level), we can reject the null hypothesis. This suggests that the average rating for recipes that have a cooking time of greater than or equal to three hours is less than the average ratings for cooking times of less than three hours. This may be because people tend to prefer faster recipes, as they are less of a time commitement. Because a recipe take less time and effort, people may be more likely to rate it higher. 
 
+
+## Framing a Prediction Problem 
+
+I plan to predict the **average rating** of a recipe. This would be a classification problem as you can treat average_rating as a categorical variable by rounding average ratings into 5 separate bins [1-5]. This will be a multi-classifier problem, as we have to classifiy recipes into one of the 5 bins. I chose average rating as it is a very good representation of how people feel about a certain recipe, and can help show trends of what kinds of recipes people tend to like. Additionally, there seems to be a high correlation between the cooking time and rating of a recipe, and this prediction model will help further explore that relationship. 
+
+I will be using the **F1** score in order to measure the performance of my model. This is primarily because there are many more high ratings than low ratings in the dataset, causing a left skew. Thus, using accuracy may incorrectly reflect how well the model is actually performing. Using the f1 score will allow me to maximize both recall and precision in my model. 
+
+In order to predict the average rating, I will only be using the information available in the columns in the recipes dataset. All of this information would be available before average rating is determined and the recipe is posted, so it is valid to use these columns as predictors. Every column is something you can determine before knowing average rating of the recipe, even if no one has left ratings of the recipe yet. 
+
+## Baseline Model 
+
+For the baseline model, I trained a RandomForestClassifier in order to clasify recipes into the 5 separate rating bins. I incorporated the following features: "greater_than_three" and "calories." I implemented these features because I found that recipes with lower calories tend to have higher ratings. Thus, I believed the quantitative column of calories may be a good predictor for average rating. As mentioned previously, "greater_than_three" and "avg_rating" also seem to have a strong relationship, so I implemented this cateogorical variable into my baseline model. 
+
+I one hot encoded the "greater_than_three" column in order to transform it from a boolean value to a column with 0s and 1s, and dropped one of the columns to avoid repetitive information. Thus, I can train the model properly. 
+
+After training my model, I tested the model on unseen data. My model obtained an f1 score of [0.01 0.02 0.05 0.27 0.55], the items in the list corresponding to the f1 score of 1s, 2s, 3s, 4s, and 5s. It resulted in an average F1 score of 0.4535. This means it accurately predicts the rating 45.35% of the time. I believe that this model has much room for improvement and is not a particularly good model, as it has a relatively low average f1 score, correctly predicting ratings less than half of the time. Additionally, it seems to predict higher ratings much better than lower ratings, which could possibly be because there are fewer lower ratings in the dataset as a whole. 
+
+## Final Model
