@@ -255,8 +255,20 @@ As mentioned in the introduction, this project is mainly focused on how a recipe
 
 **Alternate Hypothesis**: The average rating for recipes that have a cooking time of greater than or equal to three hours is less than the average ratings for cooking times of less than three hours
 
-**Test Statistic**: Difference in means between "avg_rating" for recipes with greater than three hours cooking time and "avg_rating" for recipes with less than three hours cooking time. 
+**Test Statistic**: Difference in means between "avg_rating" for recipes with greater than or equal to three hours cooking time and "avg_rating" for recipes with less than three hours cooking time. 
 
 **Significance Level**: 0.05
 
-I decided to conduct a permutation test with these choices because we have no information about actual population, rather are trying to see if longer cooking times have a different average rating distribution from shorter cooking times. According to research conducted prior to the test, people are more likely to favor less complex recipes. Thus, I conducted a one-sided permutation test as I believe that shorter cooking times would have higher average ratings. 
+I decided to conduct a permutation test with these choices because we have no information about actual population, rather are trying to see if longer cooking times have a different average rating distribution from shorter cooking times. According to research conducted prior to the test, people are more likely to favor less complex recipes, and I wanted to test this hypothesis with the data. Thus, I conducted a one-sided permutation test as I believe that shorter cooking times would have higher average ratings. This is why my test statistic was a difference in means rather than an absolute difference in means, as I had a directional hypothesis. 
+
+To run this test, I first split up the data into two groups - greater than or equal to three hours cooking time and less than three hours cooking time. **This resulted in a test statistic of 0.3504**. I ran 1000 simulations in which I shuffled the labels of the two groups and calculated the difference in means for average rating. This resulted in a p-value of 0.0. The empirical distribution of the difference in means is shown below. 
+<iframe
+  src="permutation.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+### Conclusion
+Since the p-value of 0.0 < 0.05 (the significance level), we can reject the null hypothesis. This suggests that the average rating for recipes that have a cooking time of greater than or equal to three hours is less than the average ratings for cooking times of less than three hours. This may be because people tend to prefer faster recipes, as they are less of a time commitement. Because a recipe take less time and effort, people may be more likely to rate it higher. 
+
