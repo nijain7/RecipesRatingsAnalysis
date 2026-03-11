@@ -285,10 +285,18 @@ In order to predict the average rating, I will only be using the information ava
 
 ## Baseline Model 
 
-For the baseline model, I trained a RandomForestClassifier in order to clasify recipes into the 5 separate rating bins. I incorporated the following features: "greater_than_three" and "calories." I implemented these features because I found that recipes with lower calories tend to have higher ratings. Thus, I believed the quantitative column of calories may be a good predictor for average rating. As mentioned previously, "greater_than_three" and "avg_rating" also seem to have a strong relationship, so I implemented this cateogorical variable into my baseline model. 
+For the baseline model, I trained a RandomForestClassifier in order to clasify recipes into the 5 separate rating bins. I incorporated the following features: `"greater_than_three"` and `"calories."` I implemented these features because I found that recipes with lower calories tend to have higher ratings. Thus, I believed the quantitative column of calories may be a good predictor for average rating. As mentioned previously, `"greater_than_three"` and `"avg_rating"` also seem to have a strong relationship, so I implemented this cateogorical variable into my baseline model. 
 
-I one hot encoded the "greater_than_three" column in order to transform it from a boolean value to a column with 0s and 1s, and dropped one of the columns to avoid repetitive information. Thus, I can train the model properly. 
+I one hot encoded the `"greater_than_three"` column in order to transform it from a boolean value to a column with 0s and 1s, and dropped one of the columns to avoid repetitive information. Thus, I can train the model properly. 
 
 After training my model, I tested the model on unseen data. My model obtained an f1 score of [0.01 0.02 0.05 0.27 0.55], the items in the list corresponding to the f1 score of 1s, 2s, 3s, 4s, and 5s. It resulted in an average F1 score of 0.4535. This means it accurately predicts the rating 45.35% of the time. I believe that this model has much room for improvement and is not a particularly good model, as it has a relatively low average f1 score, correctly predicting ratings less than half of the time. Additionally, it seems to predict higher ratings much better than lower ratings, which could possibly be because there are fewer lower ratings in the dataset as a whole. 
 
 ## Final Model
+
+In order to expand and improve on the baseline model, I incorporated and transformed new features to make my final model. The final model was trained using the following features: `'greater_than_three'`, `'calories'`, `'submitted'`, `'n_steps'`, `'sugar'`. 
+
+`'greater_than_three'`
+As per the hypothesis test I performed earlier, recipes that take longer have a lower average rating, while recipes that take less time have a higher average rating. Thus, it seems to be a useful feature in predicting the average rating for a recipe. Like the baseline model, I one hot encoded this column in order to translate it to training a model. 
+
+`'calories'`
+The pivot table attached below summarizes the mean calories for each given recipe rating from 1-5. There seems to be a trend that higher rated recipes have a lower amount of calories. Thus, calories may be a good predictor for `'avg_rating'`.
