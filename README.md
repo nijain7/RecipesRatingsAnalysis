@@ -289,14 +289,77 @@ For the baseline model, I trained a RandomForestClassifier in order to clasify r
 
 I one hot encoded the `"greater_than_three"` column in order to transform it from a boolean value to a column with 0s and 1s, and dropped one of the columns to avoid repetitive information. Thus, I can train the model properly. 
 
-After training my model, I tested the model on unseen data. My model obtained an f1 score of [0.01 0.02 0.05 0.27 0.55], the items in the list corresponding to the f1 score of 1s, 2s, 3s, 4s, and 5s. It resulted in an average F1 score of 0.4535. This means it accurately predicts the rating 45.35% of the time. I believe that this model has much room for improvement and is not a particularly good model, as it has a relatively low average f1 score, correctly predicting ratings less than half of the time. Additionally, it seems to predict higher ratings much better than lower ratings, which could possibly be because there are fewer lower ratings in the dataset as a whole. 
+After training my model, I tested the model on unseen data. My model obtained an f1 score of [0.01 0.02 0.05 0.27 0.55], the items in the list corresponding to the f1 score of 1s, 2s, 3s, 4s, and 5s. It resulted in an average F1 score of 0.453. This means it accurately predicts the rating 45.35% of the time. I believe that this model has much room for improvement and is not a particularly good model, as it has a relatively low average f1 score, correctly predicting ratings less than half of the time. Additionally, it seems to predict higher ratings much better than lower ratings, which could possibly be because there are fewer lower ratings in the dataset as a whole. 
 
 ## Final Model
 
 In order to expand and improve on the baseline model, I incorporated and transformed new features to make my final model. The final model was trained using the following features: `'greater_than_three'`, `'calories'`, `'submitted'`, `'n_steps'`, `'sugar'`. 
 
 `'greater_than_three'`
-As per the hypothesis test I performed earlier, recipes that take longer have a lower average rating, while recipes that take less time have a higher average rating. Thus, it seems to be a useful feature in predicting the average rating for a recipe. Like the baseline model, I one hot encoded this column in order to translate it to training a model. 
+This column contains boolean values as to whether the recipe takes longer than three hours to prepare. As per the hypothesis test I performed earlier, recipes that take longer have a lower average rating, while recipes that take less time have a higher average rating. Thus, it seems to be a useful feature in predicting the average rating for a recipe. Like the baseline model, I one hot encoded this column in order to translate it to training a model. 
 
 `'calories'`
-The pivot table attached below summarizes the mean calories for each given recipe rating from 1-5. There seems to be a trend that higher rated recipes have a lower amount of calories. Thus, calories may be a good predictor for `'avg_rating'`.
+This column contains the total number of calories for each recipe. he pivot table attached below summarizes the mean calories for each given recipe rating from 1-5. There seems to be a trend that higher rated recipes have a lower amount of calories. Thus, calories may be a good predictor for `'avg_rating'`. 
+
+|   avg_rating |   calories |
+|-------------:|-----------:|
+|            1 |    447.964 |
+|            2 |    445.258 |
+|            3 |    442.251 |
+|            4 |    422.67  |
+|            5 |    427.668 |
+
+I implemented a RobustScalarTransformer on this column as there are many outliers that could possibly introduce bias on the results of the model. 
+
+`'n_steps'`
+This column contains the number of steps per recipe. In order to see how this column could impact the average rating, I created a pivot table describing the average rating for recipes that have more than 40 steps (index = True) and less than 40 steps (index = False). I used 40 as the threshold as this is the median number of steps amongst all recipes in the datasest. The average rating for recipes with 40 steps or more seem to be higher than those with less than forty steps. This may be because more steps means the recipes are more descriptive and exact, allowing users with little experience to better make the recipe. 
+
+| >=40 steps   |   avg_rating |
+|:-------------|-------------:|
+| False        |      4.62499 |
+| True         |      4.72653 |
+
+I implemented a Binarizer transformer on this column to classify each recipe into one of two groups: less than 40 steps and greater than or equal to 40 steps. 
+
+`'submitted'`
+This column contains information about when the recipe was submitted to the network. I created a stacked bar chart representing the proportions of 1-5s per year, and the proportions seem to vary per year. Specifically, there seems to be a trend of more 1s and 2s in later years than in earlier years. This may be because people have had more time to get used to recipes posted earlier, and newer recipes may not add much more to the already posted recipes. Because the average weighted f1 scores for the lower ratings in my baseline model were extremely low, I believe that this column can help better classify the lower rated recipes. 
+<iframe
+  src="final_mod_year.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+I implemented a FunctionTransformer on this column to extract the year from the already transformed DateTime objects of the submitted column. 
+
+`'sugar'`
+Finally, I implemented the sugar column, which contains information about the total sugar content in each given recipe. Based on the pivot table attached below, it seems that higher rated recipes tend to have a lower sugar content. This may be because people lean towards healthier recipes when cooking for themselves, and thus are more likely to rate healthy recipes higher. Thus, it could be a good predictor for average rating. 
+
+|   avg_rating |   sugar |
+|-------------:|--------:|
+|            1 | 76.7458 |
+|            2 | 73.9923 |
+|            3 | 84.4529 |
+|            4 | 61.3649 |
+|            5 | 69.2212 |
+
+For this column, I did not implement a transformer. 
+
+I used a RandomForestClassifier model so that my model could average out the decisions of multiple trees. In order to create the best model, I had to choose the best hyperparameters - specifically, the max tree depth of each tree in the random forest. This is so that my model does not overfit nor underfit the training data, and can generalize to unseen data, as well as control the variance of the trees. I tuned this hyperparameter by implementing a GridSearchCV, and learned that the optimal max_depth for my model is 17. With a max_depth of 17, and a hundred estimators, I ended up getting a **f1 test score of 0.549**, an overall **increase of 0.096** from the baseline model. However, the individual f1 scores for each rating 1-5 was [0, 0.01,0.04 ,0.31,0.68]. While the model did get better overall, it still incorrectly estimates the lower ratings, which may still be because the features do not properly predict lower ratings. 
+
+## Fairness Analysis 
+
+For the fairness analysis, I split up my data into two groups: recipes posted before 2009 and recipes posted after 2009. I split the year at 2009 because that is the median of all years in the dataset. I chose an evaluation metric of precision, as precision is the most relevant metric for predicting average ratings. For example, if the model consistently incorrectly predicts a very high rating for recipes posted in earlier years, people would be deterred from trying newer recipes. Incorrectly labeled ratings would falsesly inform users, and false positives would be bad. Thus, my parity metric is precision.
+
+**Null Hypothesis**: Our model is fair. Its precision for recipes posted before 2009 and after 2009 are roughly the same, and any differences are due to random chance.
+**Alternative Hypothesis**: Our model is unfair. Its precision for recipes posted after 2009 is higher than those posted before 2009.
+**Test Statistic**: Difference in precision scores (after 2009 -  before 2009)
+**Significance Level**: 0.05
+
+<iframe
+  src="fairness.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+First, I calculated the observed test statistic transforming the "year" column into a boolean column, "after_2009", stating whether or not the recipe was posted after 2009. Then I grouped by "after_2009", and calculated the difference in precision, obtaining a test statistic of 0.0807. After performing a permutation test by simulating the null hypothesis by shuffling the year labels 1000 times, I obtained a p-value of 0.0. Because 0.0 < 0.05, the signficance level, we reject the null hypothesis that the model is fair. There is sufficient evidence that the precision of the prediction model for recipes posted after 2009 is higher than the precision of the model posted before 2009. 
+
