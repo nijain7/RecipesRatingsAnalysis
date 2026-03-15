@@ -131,7 +131,7 @@ First, I created a visualization of the distribution of average ratings amongst 
 <iframe
   src="assets/distribution-rating.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 The histogram is heavily skewed right, demonstrating recipes tend to have higher reviews rather than lower reviews, with relatively very few recipes having ratings between 1-3. 
