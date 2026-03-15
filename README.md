@@ -129,7 +129,7 @@ The head of the relevant columns for this analysis of the resulting dataframe is
 First, I created a visualization of the distribution of average ratings amongst all recipes. 
 
 <iframe
-  src="distribution-rating.html"
+  src="assets/distribution-rating.html"
   width="800"
   height="600"
   frameborder="0"
@@ -139,7 +139,7 @@ The histogram is heavily skewed right, demonstrating recipes tend to have higher
 Next, I developed a visualization of the distribution of the number of ingredients amongst all recipes, in order to guage the complexity of most recipes. 
 
 <iframe
-  src="distribution-ingredients.html"
+  src="assets/distribution-ingredients.html"
   width="800"
   height="600"
   frameborder="0"
@@ -151,7 +151,7 @@ This histogram is primarily centered around 8-9 ingredients, with a slight right
 In order to measure the relationship between cooking time and average rating, I created a scatterplot corresponding to the average rating for each recipe by the cooking time in minutes.
 
 <iframe
-  src="time-rating.html"
+  src="assets/time-rating.html"
   width="800"
   height="600"
   frameborder="0"
@@ -200,7 +200,7 @@ Next, in order to explore the missingness of the "avg_rating" column, I examined
 
 In order to confirm this theory, I created an overlaid histogram mapping the density of missing and non-missing data over time. 
 <iframe
-  src="year_vis.html"
+  src="assets/year_vis.html"
   width="800"
   height="600"
   frameborder="0"
@@ -219,7 +219,7 @@ From the visualization, we can conclude that non-missing average ratings are hea
 I ran this permutation test with 1000 simulations by shuffling the missingness of `"avg_rating"` and checking if the simulated test statistics were as extreme as the observed test statistic.
 
 <iframe
-  src="missing.html"
+  src="assets/missing.html"
   width="800"
   height="600"
   frameborder="0"
@@ -241,7 +241,7 @@ Next, I conducted a permutation test to determine if the missingness of "avg_rat
 I ran this permutation test with 1000 simulations by shuffling the missingness of "avg_rating" and checking if the simulated test statistics were as extreme as the observed test statistic.
 
 <iframe
-  src="sodium.html"
+  src="assets/sodium.html"
   width="800"
   height="600"
   frameborder="0"
@@ -264,7 +264,7 @@ I decided to conduct a permutation test with these choices because we have no in
 
 To run this test, I first split up the data into two groups - greater than or equal to three hours cooking time and less than three hours cooking time. **This resulted in a test statistic of 0.3504**. I ran 1000 simulations in which I shuffled the labels of the two groups and calculated the difference in means for average rating. This resulted in a ** p-value of 0.0**. The empirical distribution of the difference in means is shown below. 
 <iframe
-  src="permutation.html"
+  src="assets/permutation.html"
   width="800"
   height="600"
   frameborder="0"
@@ -328,7 +328,7 @@ I implemented a Binarizer transformer on this column to classify each recipe int
 
 This column contains information about when the recipe was submitted to the network. I created a stacked bar chart representing the proportions of 1-5s per year, and the proportions seem to vary per year. Specifically, there seems to be a trend of more 1s and 2s in later years than in earlier years. This may be because people have had more time to get used to recipes posted earlier, and newer recipes may not add much more to the already posted recipes. Because the average weighted f1 scores for the lower ratings in my baseline model were extremely low, I believe that this column can help better classify the lower rated recipes. 
 <iframe
-  src="final_mod_year.html"
+  src="assets/final_mod_year.html"
   width="800"
   height="600"
   frameborder="0"
@@ -364,7 +364,7 @@ For the fairness analysis, I split up my data into two groups: recipes posted be
 **Significance Level**: 0.05
 
 <iframe
-  src="fairness.html"
+  src="assets/fairness.html"
   width="800"
   height="600"
   frameborder="0"
