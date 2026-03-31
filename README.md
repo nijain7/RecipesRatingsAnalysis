@@ -129,9 +129,9 @@ The head of the relevant columns for this analysis of the resulting dataframe is
 First, I created a visualization of the distribution of average ratings amongst all recipes. 
 
 <iframe
-  src="distribution-rating.html"
+  src="assets/distribution-rating.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 The histogram is heavily skewed right, demonstrating recipes tend to have higher reviews rather than lower reviews, with relatively very few recipes having ratings between 1-3. 
@@ -139,9 +139,9 @@ The histogram is heavily skewed right, demonstrating recipes tend to have higher
 Next, I developed a visualization of the distribution of the number of ingredients amongst all recipes, in order to guage the complexity of most recipes. 
 
 <iframe
-  src="distribution-ingredients.html"
-  width="800"
-  height="600"
+  src="assets/distribution-ingredients.html"
+  width="100%"
+  height="450"
   frameborder="0"
 ></iframe>
 This histogram is primarily centered around 8-9 ingredients, with a slight right skew. This suggests that the data is relatively well behaved, possibly being a good indicator to predict average ratings. 
@@ -151,9 +151,9 @@ This histogram is primarily centered around 8-9 ingredients, with a slight right
 In order to measure the relationship between cooking time and average rating, I created a scatterplot corresponding to the average rating for each recipe by the cooking time in minutes.
 
 <iframe
-  src="time-rating.html"
+  src="assets/time-rating.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 This visualization shows that the entire distribution of average ratings have low cooking times data points, but higher average ratings seem to be more likely to have higher cooking times. This visualization does not adhere to my initial hypothesis, but in later sections, I will see how cooking time can help predict average rating for recipes to further explore this relationship. 
@@ -200,9 +200,9 @@ Next, in order to explore the missingness of the "avg_rating" column, I examined
 
 In order to confirm this theory, I created an overlaid histogram mapping the density of missing and non-missing data over time. 
 <iframe
-  src="year_vis.html"
-  width="800"
-  height="600"
+  src="assets/year_vis.html"
+  width="100%"
+  height="450"
   frameborder="0"
 ></iframe>
 
@@ -219,9 +219,9 @@ From the visualization, we can conclude that non-missing average ratings are hea
 I ran this permutation test with 1000 simulations by shuffling the missingness of `"avg_rating"` and checking if the simulated test statistics were as extreme as the observed test statistic.
 
 <iframe
-  src="missing.html"
-  width="800"
-  height="600"
+  src="assets/missing.html"
+  width="100%"
+  height="450"
   frameborder="0"
 ></iframe>
 The observed test statistic of 0.7297 is represented by the red line on the graph. Since the **p-value of 0.0** < significance level of 0.05, we can **reject the null hypothesis.** Thus, there is significant evidence that the missingness of "average rating" does depend on "year."
@@ -241,9 +241,9 @@ Next, I conducted a permutation test to determine if the missingness of "avg_rat
 I ran this permutation test with 1000 simulations by shuffling the missingness of "avg_rating" and checking if the simulated test statistics were as extreme as the observed test statistic.
 
 <iframe
-  src="sodium.html"
-  width="800"
-  height="600"
+  src="assets/sodium.html"
+  width="100%"
+  height="450"
   frameborder="0"
 ></iframe>
 The observed test statistic of 0.3404 is represented by the red line of the graph. This results in a** p-value of 0.883 **which is greater than the significance level of 0.05. Thus, we **fail to reject the null hypothesis**, and cannot conclude that the missingness of "avg_rating" is dependent on "sodium." 
@@ -264,9 +264,9 @@ I decided to conduct a permutation test with these choices because we have no in
 
 To run this test, I first split up the data into two groups - greater than or equal to three hours cooking time and less than three hours cooking time. **This resulted in a test statistic of 0.3504**. I ran 1000 simulations in which I shuffled the labels of the two groups and calculated the difference in means for average rating. This resulted in a ** p-value of 0.0**. The empirical distribution of the difference in means is shown below. 
 <iframe
-  src="permutation.html"
-  width="800"
-  height="600"
+  src="assets/permutation.html"
+  width="100%"
+  height="450"
   frameborder="0"
 ></iframe>
 
@@ -328,9 +328,9 @@ I implemented a Binarizer transformer on this column to classify each recipe int
 
 This column contains information about when the recipe was submitted to the network. I created a stacked bar chart representing the proportions of 1-5s per year, and the proportions seem to vary per year. Specifically, there seems to be a trend of more 1s and 2s in later years than in earlier years. This may be because people have had more time to get used to recipes posted earlier, and newer recipes may not add much more to the already posted recipes. Because the average weighted f1 scores for the lower ratings in my baseline model were extremely low, I believe that this column can help better classify the lower rated recipes. 
 <iframe
-  src="final_mod_year.html"
-  width="800"
-  height="600"
+  src="assets/final_mod_year.html"
+  width="100%"
+  height="450"
   frameborder="0"
 ></iframe>
 I implemented a FunctionTransformer on this column to extract the year from the already transformed DateTime objects of the submitted column. 
@@ -364,9 +364,9 @@ For the fairness analysis, I split up my data into two groups: recipes posted be
 **Significance Level**: 0.05
 
 <iframe
-  src="fairness.html"
-  width="800"
-  height="600"
+  src="assets/fairness.html"
+  width="100%"
+  height="400"
   frameborder="0"
 ></iframe>
 
